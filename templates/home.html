@@ -103,14 +103,25 @@
              .attr("r", 30)
              .style("fill", "transparent")
              .style("stroke", "black")
-              .on("mouseover", function(){
+          .on("mouseover", function(){
                 d3.select(this)
-                .style("fill", "url(#image)");
+                .style("fill", "url(#image)")
+		 return tooltip.style("visibility", "visible");
                 })
-                .on("mouseout", function(){
+      	  .on("mousemove", function(){
+		return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+
+           .on("mouseout", function(){
                 d3.select(this)
-                .style("fill", "transparent");
+                .style("fill", "transparent")
+		return tooltip.style("visibility", "hidden");
                 });
+	var tooltip = d3.select("body")
+		.append("div")
+		.style("position", "absolute")
+		.style("z-index", "10")
+		.style("visibility", "hidden")
+		.text("{{l[1]}}");
                 </script>
         {% endfor %}
             <p id="viz">
